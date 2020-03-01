@@ -2,7 +2,7 @@
 
 # EDR Test Program
 
-Main purpose of the code is to demonstrate Electrochemical Dynamic Response method. 
+Main purpose of the code is to demonstrate Electrochemical Dynamic Response method. Written in C using KEIL IDE.
 
 ## What does the code do?
 
