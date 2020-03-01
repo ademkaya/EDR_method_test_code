@@ -1,10 +1,10 @@
 
 
-# EDR Test Program
+# EDR Test Program 
 
 Main purpose of the code is to demonstrate Electrochemical Dynamic Response method. Written in C using KEIL IDE.
 
-## What does the code do?
+## What does the code do? :bowtie:
 
 	1- it initializes the core properly, assigns the pll frequency, defined in main.h.
 	2- Initializes the debug and load switch pins. 
