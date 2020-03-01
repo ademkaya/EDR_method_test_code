@@ -16,19 +16,3 @@ Main purpose of the code is to demonstrate Electrochemical Dynamic Response meth
 	8- when the dma buffer is full, measurement is completed.
 	9- data is analyzed and send to the user for further processing.
 
-## Flow Chart
-```mermaid
-graph TD
-	A(START) -->B[Initialize the hardware]
-	B -->  C{measurement start ?}
-	C-- NO -->  C{measurement start?}
-	C-- YES--> D[Start sampling & turn on load switch]
-	D--> E[Is half of the measurement reached?]
-	E-- NO --> E{Is half of the measurement reached?}
-	E-- YES--> F[Turn off the load switch]
-	F--> G{Is the measurement finished?}
-	G--NO--> G{Is the measurement finished?}
-	G--YES-->H[Analyze the data send the result to the user]
-	H-->I{RESTART?}
-	I-- NO -->I{RESTART?}
-	I-- YES -->D[Start sampling & turn on load switch]
