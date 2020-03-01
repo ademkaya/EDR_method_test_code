@@ -16,3 +16,6 @@ Main purpose of the code is to demonstrate Electrochemical Dynamic Response meth
 	8- when the dma buffer is full, measurement is completed.
 	9- data is analyzed and send to the user for further processing.
 
+## Note:
+
+The project is uncompleted without STM32F3 family framework, please download it from [STM32F3 HAL DRIVERS](https://www.st.com/en/embedded-software/stm32cubef3.html) and place it under a folder named "F3_Drivers".
