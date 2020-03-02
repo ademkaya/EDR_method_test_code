@@ -21,3 +21,10 @@ Main purpose of the code is to demonstrate Electrochemical Dynamic Response meth
  - You can see the flowchart under the main folder structure.
 
  - The project is uncompleted without STM32F3 family framework, please download it from [STM32F3 HAL DRIVERS](https://www.st.com/en/embedded-software/stm32cubef3.html) and place it under a folder named "F3_Drivers".
+
+ - Folder layout
+								[EDR_test_code] -------  [F3_Drivers]
+															|
+															|
+												   [CMSIS]-----[STM32F3xx_HAL_Driver]
+												   
