@@ -47,14 +47,12 @@ bool				 IsMeasurementDone = false;
 					8- when the dma buffer is full, measurement is completed.
 					9- data is analyzed and send to the user for further processing.
 */
-
-
 int main(void)
 {			
 	/* 	hardware related lines*/
   HAL_Init();
   SystemClock_Config_Custom(CoreFrequency,false);
-	
+
 	/* 	hardware related lines*/
 	GPIO_INIT(StateSet_PORT,StateSet_PIN,GPIO_MODE_OUTPUT_PP,NULL);
 	GPIO_INIT(LEDPort,LEDPin,GPIO_MODE_OUTPUT_PP,NULL);								/* debug purposes	*/
@@ -66,8 +64,8 @@ int main(void)
 	GPIO_INIT(LOADPort,LOADPin,GPIO_MODE_OUTPUT_PP,NULL);
 	
 	/* 	ADC Inits */
-	TIM_TriggerSource_Config((TIM_HandleTypeDef*)&tim8Handler ,  TIM8,TIM8_UP_IRQn ,(CoreFrequency/1000)-1,4000-1);//4mSec data read trigger
-	ADC_Config_DMA_ExternalBat((ADC_HandleTypeDef*)&Adc2Handle, &ADC_2_CH3_Array[0],ADC_RESOLUTION_12B,ADC_SAMPLETIME_601CYCLES_5,ADC_EXTERNALTRIGCONV_T8_TRGO);
+	TIM_TriggerSource_Config((TIM_HandleTypeDef*)&tim8Handler , TIM8,TIM8_UP_IRQn  ,((CoreFrequency*1000)/1000000)-1,1000-1);							 // 1mSec data read trigger
+	ADC_Config_DMA_ExternalBat((ADC_HandleTypeDef*)&Adc2Handle, &ADC_2_CH3_Array[0], ADC_RESOLUTION_12B,ADC_SAMPLETIME_601CYCLES_5,ADC_EXTERNALTRIGCONV_T8_TRGO);
 	
 	/* 	Uart Init */
 	UART_INIT(&uartHandle,115200,UART_TX_Pool_RX_IT);
@@ -79,7 +77,6 @@ int main(void)
 		ADC requires TIM8 to be started. TIM8 is started ,first time, in RXReturnCallback. After each 
 		DMA full interrupt only dma starts back up.
 	*/
-	
 	while(1){
 
 		/* all adc dma buffer is filled up, time to process*/
@@ -107,6 +104,27 @@ int main(void)
 	}
 	
 }
+/* debug */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+	if (htim->Instance == TIM8){
+		SET_PIN_ON(LEDPort,LEDPin);
+	}	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void TXReturnCallback(UART_HandleTypeDef* UartHandle){
 	__NOP();
 }
@@ -215,10 +233,10 @@ void 				 SystemClock_Config_Custom(uint32_t clockSpeedKHz,bool LSI_ON){
 	
 		uint32_t clkmultiplier=0;
 		clockSpeedKHz *= 1000;	// Hertz
-		clkmultiplier = clockSpeedKHz/8000000;		// must be equal or bigger than 16000
+		clkmultiplier = clockSpeedKHz/8000000;
 		clkmultiplier = (((clkmultiplier-2)<<2)<<16);
 	
-  RCC_OscInitStruct.PLL.PLLMUL = clkmultiplier;//RCC_PLL_MUL5; 						// 40Mhz  - 1 flash latency	
+  RCC_OscInitStruct.PLL.PLLMUL = clkmultiplier;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     while(1);
@@ -235,7 +253,7 @@ void 				 SystemClock_Config_Custom(uint32_t clockSpeedKHz,bool LSI_ON){
 //	0-24: 0 wait
 //	+24-48:	1
 //	+48-72:	2
-// ---------------------------------------------------------------------------------	@ 4.10.19 Adem latency self calculation
+// ---------------------------------------------------------------------------------	@  latency self calculation
 	uint32_t multiplier = (((RCC_OscInitStruct.PLL.PLLMUL>>16)>>2)+2);
 	uint32_t divider		= (RCC_OscInitStruct.HSEPredivValue + 1);
 	SystemCoreClock 		= (SystemCoreClock/divider)*multiplier;
@@ -248,8 +266,7 @@ void 				 SystemClock_Config_Custom(uint32_t clockSpeedKHz,bool LSI_ON){
 	} else if ((SystemCoreClock > 48000000)/*&&(SystemCoreClock >= 72000000)*/){
 				latency = FLASH_LATENCY_2;
 	}
-// ---------------------------------------------------------------------------------	@ 4.10.19 Adem
-	
+
 	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, latency) != HAL_OK)  	 {   ;  }
 
 	
