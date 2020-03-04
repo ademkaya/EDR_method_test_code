@@ -11,7 +11,15 @@ ADC_HandleTypeDef 	Adc2Handle;
 DMA_HandleTypeDef  	Dma2Handle_ADC2;
 
 uint16_t 				ADC_2_CH3_Array [ADC_BATTERY_BUFFER_SIZE];
-char 						ptrChar					[1000]; 		// ~~ 00000\r\n
+char 						ptrChar[2000] = "@brief : In this point, uart and switch control is initialized and ready to be used. \
+			ADC is connected to DMA in Normal mode which requires to be reload after every measurement. \
+		ADC requires TIM8 to be started. TIM8 is started ,first time, in RXReturnCallback. After each \
+		DMA full interrupt only dma starts back up. \
+		"; 						// ~~ 00000\r\n
+uint8_t* RxBuffer=NULL;
+uint8_t* TxBuffer=NULL;
+
+
 
 /* hardware funcs */
 void SysTick_Handler(void);
@@ -64,13 +72,14 @@ int main(void)
 	GPIO_INIT(LOADPort,LOADPin,GPIO_MODE_OUTPUT_PP,NULL);
 	
 	/* 	ADC Inits */
-	TIM_TriggerSource_Config((TIM_HandleTypeDef*)&tim8Handler , TIM8,TIM8_UP_IRQn  ,((CoreFrequency*1000)/1000000)-1,1000-1);							 // 1mSec data read trigger
+	TIM_TriggerSource_Config((TIM_HandleTypeDef*)&tim8Handler , TIM8,TIM8_UP_IRQn  ,((CoreFrequency*1000)/1000000)-1,1000-1);					 // 1mSec data read trigger
 	ADC_Config_DMA_ExternalBat((ADC_HandleTypeDef*)&Adc2Handle, &ADC_2_CH3_Array[0], ADC_RESOLUTION_12B,ADC_SAMPLETIME_601CYCLES_5,ADC_EXTERNALTRIGCONV_T8_TRGO);
 	
 	/* 	Uart Init */
-	UART_INIT(&uartHandle,115200,UART_TX_Pool_RX_IT);
+	UART_INIT(&uartHandle,&TxBuffer,&RxBuffer,115200,UART_TX_Pool_RX_IT);
 	
 
+	
 	/**
 	@brief : In this point, uart and switch control is initialized and ready to be used.
 		ADC is connected to DMA in Normal mode which requires to be reload after every measurement.
@@ -129,11 +138,12 @@ void TXReturnCallback(UART_HandleTypeDef* UartHandle){
 	__NOP();
 }
 
+
 void RXReturnCallback(UART_HandleTypeDef* UartHandle){
 static bool first_init = false;
 	
 	/* if the received data starts with S, means start sampling*/
-	if (RxBuffer[0] == 'S'){
+	if ((RxBuffer[0]) == 'S'){
 			IsMeasurementDone = false;
 			
 					if (!first_init){
@@ -164,9 +174,9 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* AdcHandle){
 	 }
 }
 
-void 				 GPIO_INIT(GPIO_TypeDef* port,uint16_t pin,uint32_t mode,uint8_t alternateFunction){
+void 		GPIO_INIT(GPIO_TypeDef* port,uint16_t pin,uint32_t mode,uint8_t alternateFunction){
 
-				GPIO_InitTypeDef GPIO_InitStruct;
+	GPIO_InitTypeDef GPIO_InitStruct;
 
 				if (port == GPIOA)
 				{
@@ -204,9 +214,8 @@ void 				 GPIO_INIT(GPIO_TypeDef* port,uint16_t pin,uint32_t mode,uint8_t altern
 				
 				GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 				GPIO_InitStruct.Alternate = alternateFunction;
-				HAL_GPIO_Init(port, &GPIO_InitStruct);
-				
-				HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
+				HAL_GPIO_Init(port, &GPIO_InitStruct);			
+	HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
 
 }
 void 				 SystemClock_Config_Custom(uint32_t clockSpeedKHz,bool LSI_ON){
@@ -376,32 +385,24 @@ void 				 ADC_Config_DMA_ExternalBat(ADC_HandleTypeDef* handle, uint16_t* dmaArr
  // HAL_NVIC_DisableIRQ(DMA2_Channel1_IRQn);																			// just to make sure that this interrupt is disabled!
 }
 
+void 		reCockDMA(DMA_HandleTypeDef* dma,uint16_t length){
 
+			// DISABLE	the dma
+			resetBit((uint32_t*)&(dma->Instance->CCR),0);
 
+			// load back to the length
+			dma->Instance->CNDTR	= length;
 
+			// re-enable half transmit complete interrupt
+			setBit((uint32_t*)&(dma->Instance->CCR),2);
 
+			// re-enable transmit complete interrupt
+			setBit((uint32_t*)&(dma->Instance->CCR),1);
 
-
-
-
-void 				 reCockDMA(DMA_HandleTypeDef* dma,uint16_t length){
-
-		// DISABLE	the dma
-		resetBit((uint32_t*)&(dma->Instance->CCR),0);
-
-		// load back to the length
-		dma->Instance->CNDTR	= length;
-
-		// re-enable half transmit complete interrupt
-		setBit((uint32_t*)&(dma->Instance->CCR),2);
-
-		// re-enable transmit complete interrupt
-		setBit((uint32_t*)&(dma->Instance->CCR),1);
-
-		// ENABLE the dma
-		setBit((uint32_t*)&(dma->Instance->CCR),0);
+			// ENABLE the dma
+			setBit((uint32_t*)&(dma->Instance->CCR),0);
 }
-void 				 stopDMA(DMA_HandleTypeDef* dma){
+void 	stopDMA(DMA_HandleTypeDef* dma){
 	// DISABLE	the dma
 	resetBit((uint32_t*)&(dma->Instance->CCR),0);
 }

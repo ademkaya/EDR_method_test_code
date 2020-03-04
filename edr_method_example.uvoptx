@@ -153,7 +153,22 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
+          <ItemText>ADC_2_CH3_Array,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>1</WinNumber>
           <ItemText>ptrChar</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>temp,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>DMA1</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -198,6 +213,12 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
+      <SystemViewers>
+        <Entry>
+          <Name>System Viewer\DMA1</Name>
+          <WinId>35905</WinId>
+        </Entry>
+      </SystemViewers>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableFlashSeq>0</EnableFlashSeq>
@@ -277,8 +298,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Source\uart_bundle\uart_bundle.c</PathWithFileName>
-      <FilenameWithoutPath>uart_bundle.c</FilenameWithoutPath>
+      <PathWithFileName>.\Source\stm32f3xx_hal_msp.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f3xx_hal_msp.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -289,8 +310,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Source\stm32f3xx_hal_msp.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f3xx_hal_msp.c</FilenameWithoutPath>
+      <PathWithFileName>.\Source\stm32f3xx_it.c</PathWithFileName>
+      <FilenameWithoutPath>stm32f3xx_it.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -301,8 +322,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\Source\stm32f3xx_it.c</PathWithFileName>
-      <FilenameWithoutPath>stm32f3xx_it.c</FilenameWithoutPath>
+      <PathWithFileName>D:\SVN_PROJELER\Project_Child_Sense\Child_Sense_Working\Source_Code\F3_Drivers\HW_uart_bundle\uart_bundle.c</PathWithFileName>
+      <FilenameWithoutPath>uart_bundle.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

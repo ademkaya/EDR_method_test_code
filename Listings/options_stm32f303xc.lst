@@ -1,0 +1,311 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;/******************************************************
+                       ***********************/
+    2 00000000         ;/* STM32F303xOPT.S: STM32F303 Flash Option Bytes       
+                                              */
+    3 00000000         ;/******************************************************
+                       ***********************/
+    4 00000000         ;/* <<< Use Configuration Wizard in Context Menu >>>    
+                                             */
+    5 00000000         ;/******************************************************
+                       ***********************/
+    6 00000000         ;/* This file is part of the uVision/ARM development too
+                       ls.                   */
+    7 00000000         ;/* Copyright (c) 2005-2008 Keil Software. All rights re
+                       served.               */
+    8 00000000         ;/* This software may only be used under the terms of a 
+                       valid, current,       */
+    9 00000000         ;/* end user licence from KEIL for a compatible version 
+                       of KEIL software      */
+   10 00000000         ;/* development tools. Nothing else gives you the right 
+                       to use this software. */
+   11 00000000         ;/******************************************************
+                       ***********************/
+   12 00000000         ;// <e> Flash Option Bytes
+   13 00000000 00000000 
+                       FLASH_OPT
+                               EQU              0
+   14 00000000         
+   15 00000000         ;//   <o0> Flash Read Protection
+   16 00000000         ;//   <i>  WARNING! : LEVEL 2 IS COMPLETELY DISABLES SWD
+                       /JTAG INTERFACE. THERE IS NO GOING BACK TO LOWER LEVELS 
+                       FROM THIS PROTECTION LEVEL.
+   17 00000000         ;//   <0=> RDP LEVEL 0  <1=> RDP LEVEL 1 <2=> RDP LEVEL 
+                       2 
+   18 00000000 00000001 
+                       RDP     EQU              0x01
+   19 00000000         
+   20 00000000         ;// <h> Flash Write Protection
+   21 00000000         ;//   <o0.0> Page 0..1
+   22 00000000         ;//   <o0.1> Page 2..3
+   23 00000000         ;//   <o0.2> Page 4..5
+   24 00000000         ;//   <o0.3> Page 6..7
+   25 00000000         ;//   <o0.4> Page 8..9
+   26 00000000         ;//   <o0.5> Page 10..11
+   27 00000000         ;//   <o0.6> Page 12..13
+   28 00000000         ;//   <o0.7> Page 14..15
+   29 00000000         ;//   <o1.0> Page 16..17
+   30 00000000         ;//   <o1.1> Page 18..19
+   31 00000000         ;//   <o1.2> Page 20..21
+   32 00000000         ;//   <o1.3> Page 22..23
+   33 00000000         ;//   <o1.4> Page 24..25
+   34 00000000         ;//   <o1.5> Page 26..27
+   35 00000000         ;//   <o1.6> Page 28..29
+   36 00000000         ;//   <o1.7> Page 30..31
+   37 00000000         ;//   <o2.0> Page 32..33
+   38 00000000         ;//   <o2.1> Page 34..35
+   39 00000000         ;//   <o2.2> Page 36..37
+   40 00000000         ;//   <o2.3> Page 38..39
+   41 00000000         ;//   <o2.4> Page 40..41
+   42 00000000         ;//   <o2.5> Page 42..43
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   43 00000000         ;//   <o2.6> Page 44..45
+   44 00000000         ;//   <o2.7> Page 46..47
+   45 00000000         ;//   <o3.0> Page 48..49
+   46 00000000         ;//   <o3.1> Page 50..51
+   47 00000000         ;//   <o3.2> Page 52..53
+   48 00000000         ;//   <o3.3> Page 54..55
+   49 00000000         ;//   <o3.4> Page 56..57
+   50 00000000         ;//   <o3.5> Page 58..59
+   51 00000000         ;//   <o3.6> Page 60..61
+   52 00000000         ;//   <o3.7> Page 62..127
+   53 00000000         ;// </h>
+   54 00000000 000000FF 
+                       nWRP0   EQU              0xFF
+   55 00000000 000000FF 
+                       nWRP1   EQU              0xFF
+   56 00000000 000000FF 
+                       nWRP2   EQU              0xFF
+   57 00000000 0000007F 
+                       nWRP3   EQU              0x7F
+   58 00000000 00000000 
+                       WRP0    EQU              nWRP0:EOR:0xFF
+   59 00000000 00000000 
+                       WRP1    EQU              nWRP1:EOR:0xFF
+   60 00000000 00000000 
+                       WRP2    EQU              nWRP2:EOR:0xFF
+   61 00000000 00000080 
+                       WRP3    EQU              nWRP3:EOR:0xFF
+   62 00000000         
+   63 00000000         
+   64 00000000         ;// <h> User Configuration
+   65 00000000         ;//   <o0.0> WDG_SW     
+   66 00000000         ;//          <0=> HW Watchdog <1=> SW Watchdog
+   67 00000000         ;//   <o0.1> nRST_STOP  <i> Generate Reset when entering
+                        STOP Mode
+   68 00000000         ;//          <0=>  Reset generated when entering Stop mo
+                       de <1=>  No reset generated
+   69 00000000         ;//   <o0.2> nRST_STDBY <i> Generate Reset when entering
+                        Standby Mode
+   70 00000000         ;//          <0=> Reset generated when entering Standby 
+                       mode <1=> No reset generated
+   71 00000000         ;//   <o0.4> nBOOT1  <i> Together with the BOOT0 pin, th
+                       is bit selects Boot mode from the main Flash memory, SRA
+                       M or System memory.
+   72 00000000         ;//    <1=> Boot from System FLASH when Boot0 = 1 <0=> B
+                       oot from Embedded SRAM when Boot0 = 1
+   73 00000000         ;//   <o0.5> VDDA_MONITOR <i> This bit selects the analo
+                       g monitoring on the VDDA power source
+   74 00000000         ;//    <0=> Disabled <1=> Enabled
+   75 00000000         ;//   <o0.6> SRAM_Parity_Check  <i> The SRAM hardware pa
+                       rity check is disabled by default. This bit allows the u
+                       ser to enable the SRAM hardware parity check
+   76 00000000         ;//    <0=> Enabled  <1=> Disabled
+   77 00000000         ;// </h>
+   78 00000000 00000037 
+                       USER    EQU              0x37
+   79 00000000 000000C8 
+                       nUSER   EQU              USER:EOR:0xFF
+   80 00000000         
+   81 00000000         ;// <h> User Data
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   82 00000000         ;//   <o0> Byte 0 <0x00-0xFF>
+   83 00000000         ;//   <o1> Byte 1 <0x00-0xFF>
+   84 00000000         ;// </h>
+   85 00000000 000000F0 
+                       DATA0   EQU              0xF0
+   86 00000000 000000F1 
+                       DATA1   EQU              0xF1
+   87 00000000 0000000F 
+                       nDATA0  EQU              DATA0:EOR:0xFF
+   88 00000000 0000000E 
+                       nDATA1  EQU              DATA1:EOR:0xFF
+   89 00000000         ;// </e>
+   90 00000000         
+   91 00000000         
+   92 00000000                 IF               FLASH_OPT <> 0
+  105                          ENDIF
+  106 00000000         
+  107 00000000         
+  108 00000000                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
+erwork --depend=.\objects\options_stm32f303xc.d -o.\objects\options_stm32f303xc
+.o -I.\RTE\_edr_test -IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMS
+IS\Device\ST\STM32F3xx\Include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__MI
+CROLIB SETA 1" --predefine="__UVISION_VERSION SETA 528" --predefine="STM32F303x
+C SETA 1" --list=.\listings\options_stm32f303xc.lst Source\options_stm32f303xc.
+s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+DATA0 000000F0
+
+Symbol: DATA0
+   Definitions
+      At line 85 in file Source\options_stm32f303xc.s
+   Uses
+      At line 87 in file Source\options_stm32f303xc.s
+Comment: DATA0 used once
+DATA1 000000F1
+
+Symbol: DATA1
+   Definitions
+      At line 86 in file Source\options_stm32f303xc.s
+   Uses
+      At line 88 in file Source\options_stm32f303xc.s
+Comment: DATA1 used once
+FLASH_OPT 00000000
+
+Symbol: FLASH_OPT
+   Definitions
+      At line 13 in file Source\options_stm32f303xc.s
+   Uses
+      At line 92 in file Source\options_stm32f303xc.s
+Comment: FLASH_OPT used once
+RDP 00000001
+
+Symbol: RDP
+   Definitions
+      At line 18 in file Source\options_stm32f303xc.s
+   Uses
+      At line 96 in file Source\options_stm32f303xc.s
+      At line 98 in file Source\options_stm32f303xc.s
+
+USER 00000037
+
+Symbol: USER
+   Definitions
+      At line 78 in file Source\options_stm32f303xc.s
+   Uses
+      At line 79 in file Source\options_stm32f303xc.s
+Comment: USER used once
+WRP0 00000000
+
+Symbol: WRP0
+   Definitions
+      At line 58 in file Source\options_stm32f303xc.s
+   Uses
+      None
+Comment: WRP0 unused
+WRP1 00000000
+
+Symbol: WRP1
+   Definitions
+      At line 59 in file Source\options_stm32f303xc.s
+   Uses
+      None
+Comment: WRP1 unused
+WRP2 00000000
+
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Absolute symbols
+
+Symbol: WRP2
+   Definitions
+      At line 60 in file Source\options_stm32f303xc.s
+   Uses
+      None
+Comment: WRP2 unused
+WRP3 00000080
+
+Symbol: WRP3
+   Definitions
+      At line 61 in file Source\options_stm32f303xc.s
+   Uses
+      None
+Comment: WRP3 unused
+nDATA0 0000000F
+
+Symbol: nDATA0
+   Definitions
+      At line 87 in file Source\options_stm32f303xc.s
+   Uses
+      None
+Comment: nDATA0 unused
+nDATA1 0000000E
+
+Symbol: nDATA1
+   Definitions
+      At line 88 in file Source\options_stm32f303xc.s
+   Uses
+      None
+Comment: nDATA1 unused
+nUSER 000000C8
+
+Symbol: nUSER
+   Definitions
+      At line 79 in file Source\options_stm32f303xc.s
+   Uses
+      None
+Comment: nUSER unused
+nWRP0 000000FF
+
+Symbol: nWRP0
+   Definitions
+      At line 54 in file Source\options_stm32f303xc.s
+   Uses
+      At line 58 in file Source\options_stm32f303xc.s
+Comment: nWRP0 used once
+nWRP1 000000FF
+
+Symbol: nWRP1
+   Definitions
+      At line 55 in file Source\options_stm32f303xc.s
+   Uses
+      At line 59 in file Source\options_stm32f303xc.s
+Comment: nWRP1 used once
+nWRP2 000000FF
+
+Symbol: nWRP2
+   Definitions
+      At line 56 in file Source\options_stm32f303xc.s
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Absolute symbols
+
+   Uses
+      At line 60 in file Source\options_stm32f303xc.s
+Comment: nWRP2 used once
+nWRP3 0000007F
+
+Symbol: nWRP3
+   Definitions
+      At line 57 in file Source\options_stm32f303xc.s
+   Uses
+      At line 61 in file Source\options_stm32f303xc.s
+Comment: nWRP3 used once
+16 symbols
+349 symbols in table
