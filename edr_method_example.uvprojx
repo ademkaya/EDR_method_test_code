@@ -336,7 +336,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F303xC</Define>
+              <Define>STM32F3XX,STM32F303xC,USE_HAL_DRIVER</Define>
               <Undefine></Undefine>
               <IncludePath>.\Source;..\F3_Drivers\STM32F3xx_HAL_Driver\Inc;..\F3_Drivers\CMSIS\Include;..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include;.\Source\uart</IncludePath>
             </VariousControls>
