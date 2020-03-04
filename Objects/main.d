@@ -51,4 +51,4 @@
 .\objects\main.o: Source\main.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-.\objects\main.o: D:\SVN_PROJELER\Project_Child_Sense\Child_Sense_Working\Source_Code\F3_Drivers\HW_uart_bundle\uart_bundle.h
+.\objects\main.o: .\Source\uart\uart_bundle.h

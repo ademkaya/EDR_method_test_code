@@ -1,5 +1,5 @@
-.\objects\uart_bundle.o: D:\SVN_PROJELER\Project_Child_Sense\Child_Sense_Working\Source_Code\F3_Drivers\HW_uart_bundle\uart_bundle.c
-.\objects\uart_bundle.o: D:\SVN_PROJELER\Project_Child_Sense\Child_Sense_Working\Source_Code\F3_Drivers\HW_uart_bundle\uart_bundle.h
+.\objects\uart_bundle.o: Source\uart\uart_bundle.c
+.\objects\uart_bundle.o: Source\uart\uart_bundle.h
 .\objects\uart_bundle.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\uart_bundle.o: ..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal.h
 .\objects\uart_bundle.o: .\Source\stm32f3xx_hal_conf.h

@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F303xC</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Source;..\F3_Drivers\STM32F3xx_HAL_Driver\Inc;..\F3_Drivers\CMSIS\Include;..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include;D:\SVN_PROJELER\Project_Child_Sense\Child_Sense_Working\Source_Code\F3_Drivers\HW_uart_bundle</IncludePath>
+              <IncludePath>.\Source;..\F3_Drivers\STM32F3xx_HAL_Driver\Inc;..\F3_Drivers\CMSIS\Include;..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include;.\Source\uart</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -420,7 +420,7 @@
             <File>
               <FileName>uart_bundle.c</FileName>
               <FileType>1</FileType>
-              <FilePath>D:\SVN_PROJELER\Project_Child_Sense\Child_Sense_Working\Source_Code\F3_Drivers\HW_uart_bundle\uart_bundle.c</FilePath>
+              <FilePath>.\Source\uart\uart_bundle.c</FilePath>
             </File>
           </Files>
         </Group>
