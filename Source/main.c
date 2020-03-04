@@ -4,6 +4,9 @@
 #include "main.h"
 #include "uart_bundle.h"
 
+/*
+	Written : Adem KAYA
+*/
 
 UART_HandleTypeDef 	uartHandle;
 TIM_HandleTypeDef		tim8Handler;
@@ -11,11 +14,8 @@ ADC_HandleTypeDef 	Adc2Handle;
 DMA_HandleTypeDef  	Dma2Handle_ADC2;
 
 uint16_t 				ADC_2_CH3_Array [ADC_BATTERY_BUFFER_SIZE];
-char 						ptrChar[2000] = "@brief : In this point, uart and switch control is initialized and ready to be used. \
-			ADC is connected to DMA in Normal mode which requires to be reload after every measurement. \
-		ADC requires TIM8 to be started. TIM8 is started ,first time, in RXReturnCallback. After each \
-		DMA full interrupt only dma starts back up. \
-		"; 						// ~~ 00000\r\n
+char 						ptrChar[2000];
+
 uint8_t* RxBuffer=NULL;
 uint8_t* TxBuffer=NULL;
 
@@ -77,9 +77,7 @@ int main(void)
 	
 	/* 	Uart Init */
 	UART_INIT(&uartHandle,&TxBuffer,&RxBuffer,115200,UART_TX_Pool_RX_IT);
-	
-
-	
+		
 	/**
 	@brief : In this point, uart and switch control is initialized and ready to be used.
 		ADC is connected to DMA in Normal mode which requires to be reload after every measurement.
@@ -92,14 +90,14 @@ int main(void)
 		if (IsMeasurementDone){
 				IsMeasurementDone= false;
 			
-			
 /* data output section */			
 					temp  =0 ;
 					 for(sample_count=0;sample_count<ADC_BATTERY_BUFFER_SIZE;sample_count++)			{
 						   temp  +=sprintf(&ptrChar[temp], "%d\r\n", ADC_2_CH3_Array[sample_count]);		
 					 }
 					 sendStringDataMan((UART_HandleTypeDef*)&uartHandle, (char*)&ptrChar[0], temp);
-					 
+					 while (!IsTransmissionCompleted()){;}
+					 					 
 /* decision section  */						 
 					 temp  =0 ;
 					 sample_min = FindMin(&ADC_2_CH3_Array[0],ADC_BATTERY_BUFFER_SIZE);
@@ -109,6 +107,7 @@ int main(void)
 						 temp  =sprintf(&ptrChar[0], "BATTERY IS PASSED = %d\r\n", sample_min);	
 					 }
 					 sendStringDataMan((UART_HandleTypeDef*)&uartHandle, (char*)&ptrChar[0],temp);
+					 while (!IsTransmissionCompleted()){;}
 		}
 	}
 	

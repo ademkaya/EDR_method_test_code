@@ -153,22 +153,12 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ADC_2_CH3_Array,0x0A</ItemText>
+          <ItemText>pS_UartHandle</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ptrChar</ItemText>
-        </Ww>
-        <Ww>
-          <count>2</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>temp,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>3</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>DMA1</ItemText>
+          <ItemText>uartHandle</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

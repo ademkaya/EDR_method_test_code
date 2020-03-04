@@ -4,12 +4,6 @@
 	#include <stdbool.h>
 	#include "stm32f3xx_hal.h"
 
-//*** <<< Use Configuration Wizard in Context Menu >>> ***
-// <!c1> Disable log
-// <i> Disable log file generation
-#define _USE_LOG
-// </c>
-//*** <<< end of configuration section >>>    ***
 
 		typedef enum {
 				UART_TX_Pool_RX_IT	=								0x34,
@@ -53,10 +47,9 @@
 		#define USARTx_IRQn                      USART1_IRQn
 		#define USARTx_IRQHandler                USART1_IRQHandler
 
-
-		/* it is not changed into dynamic mode because debug problems.*/
 		/* Size of Reception buffer */
 		#define RXBUFFERSIZE                     1
+				
 		
 		bool UART_INIT(UART_HandleTypeDef* UartHandle,uint8_t** ptrTX,uint8_t** ptrRX,uint32_t uartBaudrate,UART_INIT_EnumTypedef UART_DMA_INIT);
 		
@@ -65,6 +58,7 @@
 		
 		void sendStringDataSelf(UART_HandleTypeDef *UartHandle,char* ptr);
 		void sendStringDataMan(UART_HandleTypeDef *UartHandle,char* ptr,uint16_t size);
+		bool IsTransmissionCompleted(void);
 		
 		/*weak defs*/
 		__weak void RXReturnCallback(UART_HandleTypeDef* UartHandle);

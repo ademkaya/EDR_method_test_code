@@ -3,13 +3,9 @@
 #include <stdlib.h>
 
 static UART_HandleTypeDef* 		pS_UartHandle;
-//uint8_t 				RxBuffer[RXBUFFERSIZE];
-//uint8_t 				TxBuffer[RXBUFFERSIZE];
 		
 static uint8_t* __RXBuffer=NULL;
 static uint8_t* __TXBuffer=NULL;
-
-extern uint8_t 	data_received;
 
 static uint8_t 	s_UART_DMA_INIT = 0xFF;
 
@@ -62,7 +58,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *UartHandle)
 	 ReCockTheReceiver(UartHandle,RX_Return);
 }
 
-/*when the receive timeout is passes, pointer index should be cleared to zero in order to discard the previous data */
+/*when the receive timeout is passed, pointer index should be cleared to zero in order to discard the previous data */
 void clearPointerIndexes(UART_HandleTypeDef *UartHandle){
 		UartHandle->RxXferCount = RXBUFFERSIZE;
 		UartHandle->RxXferSize 	= RXBUFFERSIZE;
@@ -126,6 +122,25 @@ void sendStringDataMan(UART_HandleTypeDef *UartHandle,char* ptr,uint16_t size){
 					while(!(UartHandle->Instance->ISR &USART_ISR_TXE))	{	__NOP();	}
 				}
 	 }
+}
+
+bool IsTransmissionCompleted(void){
+	bool retVal = true;
+	if (s_UART_DMA_INIT == UART_DMA_INIT){
+		if (pS_UartHandle->hdmatx->Instance->CNDTR!=0){
+			retVal = false;
+		}
+	}
+	if (s_UART_DMA_INIT == UART_IT_INIT)  {
+		if (pS_UartHandle->TxXferCount!=0){
+			retVal = false;
+		}		
+	}
+	if (s_UART_DMA_INIT == UART_TX_Pool_RX_IT){
+		 /* no need to check, data already sent in loop manually*/
+		__NOP(); 
+	}	
+	return retVal;
 }
 
 static void ReCockTheReceiver(UART_HandleTypeDef *UartHandle,RX_TX_Return_EnumTypedef TX_RX_return){

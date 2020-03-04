@@ -1,7 +1,7 @@
 Dependencies for Project 'edr_method_example', Target 'edr_test': (DO NOT MODIFY !)
 F (.\Source\options_stm32f303xc.s)(0x5E5CA463)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_edr_test-IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 528" --pd "STM32F303xC SETA 1"--list .\listings\options_stm32f303xc.lst --xref -o .\objects\options_stm32f303xc.o --depend .\objects\options_stm32f303xc.d)
 F (.\Source\startup_stm32f303xc.s)(0x5E5CA463)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_edr_test-IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 528" --pd "STM32F303xC SETA 1"--list .\listings\startup_stm32f303xc.lst --xref -o .\objects\startup_stm32f303xc.o --depend .\objects\startup_stm32f303xc.d)
-F (.\Source\main.c)(0x5E5F9E27)(--c99 --gnu -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Source -I ..\F3_Drivers\STM32F3xx_HAL_Driver\Inc -I ..\F3_Drivers\CMSIS\Include -I ..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include -I .\Source\uart-I.\RTE\_edr_test-IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DSTM32F303xC -DSTM32F303xC-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Source\main.c)(0x5E5FB579)(--c99 --gnu -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Source -I ..\F3_Drivers\STM32F3xx_HAL_Driver\Inc -I ..\F3_Drivers\CMSIS\Include -I ..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include -I .\Source\uart-I.\RTE\_edr_test-IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DSTM32F303xC -DSTM32F303xC-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B1868)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B186A)
 I (..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal.h)(0x5CDA7FB0)
@@ -54,7 +54,7 @@ I (..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_wwdg.h)(0x5CDA7FB0)
 I (Source\main.h)(0x5E5CA463)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B186A)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B1868)
-I (.\Source\uart\uart_bundle.h)(0x5E5F8B5C)
+I (.\Source\uart\uart_bundle.h)(0x5E5FB2C8)
 F (.\Source\system_stm32f3xx.c)(0x5E5CA463)(--c99 --gnu -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Source -I ..\F3_Drivers\STM32F3xx_HAL_Driver\Inc -I ..\F3_Drivers\CMSIS\Include -I ..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include -I .\Source\uart-I.\RTE\_edr_test-IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DSTM32F303xC -DSTM32F303xC-o .\objects\system_stm32f3xx.o --omf_browse .\objects\system_stm32f3xx.crf --depend .\objects\system_stm32f3xx.d)
 I (..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include\stm32f3xx.h)(0x5CDA7F95)
 I (..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include\stm32f303xc.h)(0x5CDA7F95)
@@ -170,8 +170,8 @@ I (..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_uart_ex.h)(0x5CDA7FB0)
 I (..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_usart.h)(0x5CDA7FB0)
 I (..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_usart_ex.h)(0x5CDA7FB0)
 I (..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_wwdg.h)(0x5CDA7FB0)
-F (.\Source\uart\uart_bundle.c)(0x5E5F9992)(--c99 --gnu -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Source -I ..\F3_Drivers\STM32F3xx_HAL_Driver\Inc -I ..\F3_Drivers\CMSIS\Include -I ..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include -I .\Source\uart-I.\RTE\_edr_test-IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DSTM32F303xC -DSTM32F303xC-o .\objects\uart_bundle.o --omf_browse .\objects\uart_bundle.crf --depend .\objects\uart_bundle.d)
-I (Source\uart\uart_bundle.h)(0x5E5F8B5C)
+F (.\Source\uart\uart_bundle.c)(0x5E5FB6F5)(--c99 --gnu -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Source -I ..\F3_Drivers\STM32F3xx_HAL_Driver\Inc -I ..\F3_Drivers\CMSIS\Include -I ..\F3_Drivers\CMSIS\Device\ST\STM32F3xx\Include -I .\Source\uart-I.\RTE\_edr_test-IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F3xx\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="528" -DSTM32F303xC -DSTM32F303xC-o .\objects\uart_bundle.o --omf_browse .\objects\uart_bundle.crf --depend .\objects\uart_bundle.d)
+I (Source\uart\uart_bundle.h)(0x5E5FB2C8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B1868)
 I (..\F3_Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal.h)(0x5CDA7FB0)
 I (.\Source\stm32f3xx_hal_conf.h)(0x5E5CA463)
