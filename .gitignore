@@ -1,3 +1,5 @@
 *.o
 *.crf
 *.d
+*.Sapphire
+*.Adem
